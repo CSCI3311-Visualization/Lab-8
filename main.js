@@ -1,11 +1,12 @@
 // Create a SVG with margin convention
 const margin = { top: 20, right: 50, bottom: 20, left: 50 };
-const width = 500 - margin.left - margin.right;
+const width = 800 - margin.left - margin.right;
 const height = 500 - margin.top - margin.bottom;
 
 const svg = d3
   .select('.vis-container')
   .append('svg')
+  //   .attr('viewBox', [0, 0, width, height]);
   .attr('width', width + margin.left + margin.right)
   .attr('height', height + margin.top + margin.bottom);
 
@@ -29,12 +30,20 @@ d3.csv('driving.csv', d3.autoType).then((data) => {
     .range([height, 0]);
 
   // Generate axes
-  const xAxis = d3.axisBottom().scale(xScale).ticks(7);
+  const xAxis = d3.axisBottom().scale(xScale).ticks(15);
   const xAxisGroup = group
     .append('g')
     .attr('class', 'x-axis axis')
     .call(xAxis)
     .attr('transform', `translate(0, ${height})`)
+    .call((g) => g.select('.domain').remove())
+    .call((g) =>
+      g
+        .selectAll('.tick line')
+        .clone()
+        .attr('y2', -height)
+        .attr('stroke-opacity', 0.1)
+    )
     .call((g) =>
       g
         .append('text')
@@ -46,7 +55,6 @@ d3.csv('driving.csv', d3.autoType).then((data) => {
         .text('Miles per person per year')
         .call(halo)
     );
-  // .call((g) => g.select('.domain').remove());
 
   const yAxis = d3
     .axisLeft()
