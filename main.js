@@ -15,8 +15,6 @@ const group = svg
   .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
 d3.csv('driving.csv', d3.autoType).then((data) => {
-  console.log(data);
-
   // Create x-scales and y-scales
   const xScale = d3
     .scaleLinear()
