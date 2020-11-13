@@ -30,7 +30,7 @@ d3.csv('driving.csv', d3.autoType).then((data) => {
     .range([height, 0]);
 
   // Generate axes
-  const xAxis = d3.axisBottom().scale(xScale).ticks(15);
+  const xAxis = d3.axisBottom().scale(xScale).ticks(7);
   const xAxisGroup = group
     .append('g')
     .attr('class', 'x-axis axis')
